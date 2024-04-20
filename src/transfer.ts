@@ -1,16 +1,12 @@
+import { getKeypairFromEnvironment } from "@solana-developers/helpers";
 import {
   Connection,
-  Transaction,
-  SystemProgram,
-  sendAndConfirmTransaction,
   PublicKey,
-  LAMPORTS_PER_SOL,
+  SystemProgram,
+  Transaction,
+  sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import "dotenv/config";
-import {
-  airdropIfRequired,
-  getKeypairFromEnvironment,
-} from "@solana-developers/helpers";
 
 const suppliedPublicKey = process.argv[2] || null;
 if (!suppliedPublicKey) {
@@ -26,13 +22,6 @@ const conn = new Connection("https://api.devnet.solana.com", "confirmed");
 
 const oldBalance = await conn.getBalance(toPubkey);
 console.log(`${oldBalance} old balance of ${toPubkey}`);
-
-// await airdropIfRequired(
-//   conn,
-//   senderKeypair.publicKey,
-//   1 * LAMPORTS_PER_SOL,
-//   0.5 * LAMPORTS_PER_SOL
-// );
 
 const oldBalanceSender = await conn.getBalance(senderKeypair.publicKey);
 console.log(`${oldBalanceSender} balance of ${senderKeypair.publicKey}`);
